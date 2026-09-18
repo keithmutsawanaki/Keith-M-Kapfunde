@@ -1,0 +1,77 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="900" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#090B0D"/>
+      <stop offset="0.45" stop-color="#101317"/>
+      <stop offset="1" stop-color="#06080B"/>
+    </linearGradient>
+    <linearGradient id="mist" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#14181B" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#0A0C0F" stop-opacity="0.4"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+
+  <g opacity="0.95">
+    <path d="M0 690L1080 500L1300 560L1600 620V900H0V690Z" fill="#0A0D10"/>
+    <path d="M0 870L260 760L420 820L560 860L1600 900H0V870Z" fill="#11161A"/>
+    <path d="M0 150L480 0H900L420 430H0V150Z" fill="#101417"/>
+    <path d="M690 0L1040 0L1300 330L950 380L690 0Z" fill="#0D1115"/>
+    <path d="M990 0L1600 0V250L1220 520L990 0Z" fill="#0A0F12"/>
+  </g>
+
+  <g opacity="0.8">
+    <path d="M220 530L970 285L1330 202L1600 250" stroke="#D30014" stroke-width="4" stroke-linecap="round" stroke-dasharray="14 18"/>
+    <path d="M0 240L510 152" stroke="#D30014" stroke-width="5" stroke-linecap="round" stroke-dasharray="12 18"/>
+    <path d="M280 630L760 495" stroke="#D30014" stroke-width="5" stroke-linecap="round" stroke-dasharray="10 16"/>
+    <path d="M550 105L955 0" stroke="#D30014" stroke-width="5" stroke-linecap="round" stroke-dasharray="12 16"/>
+  </g>
+
+  <g opacity="0.9">
+    <path d="M1030 0L1260 900" stroke="#FACACA" stroke-width="4" stroke-linecap="round"/>
+    <path d="M165 300L590 560L940 330" stroke="#F3F3F3" stroke-width="4" stroke-linecap="round" stroke-opacity="0.9"/>
+    <path d="M1080 760L1600 520" stroke="#F4F4F4" stroke-width="4" stroke-linecap="round"/>
+    <path d="M825 270L1600 250" stroke="#FF3A3A" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <g opacity="0.9">
+    <path d="M0 560H400" stroke="#7D7D7D" stroke-width="4" stroke-linecap="round"/>
+    <path d="M0 524H400" stroke="#DADADA" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+    <path d="M0 302H760" stroke="#4F4F4F" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <g opacity="0.92">
+    <path d="M200 500L220 520L200 540L180 520L200 500Z" fill="#090B0D"/>
+    <path d="M250 500L270 520L250 540L230 520L250 500Z" fill="#090B0D"/>
+    <path d="M300 500L320 520L300 540L280 520L300 500Z" fill="#090B0D"/>
+    <path d="M350 500L370 520L350 540L330 520L350 500Z" fill="#090B0D"/>
+
+    <path d="M495 480L515 500L495 520L475 500L495 480Z" fill="#090B0D"/>
+    <path d="M540 480L560 500L540 520L520 500L540 480Z" fill="#090B0D"/>
+    <path d="M585 480L605 500L585 520L565 500L585 480Z" fill="#090B0D"/>
+    <path d="M630 480L650 500L630 520L610 500L630 480Z" fill="#090B0D"/>
+
+    <g opacity="0.9">
+      <rect x="1040" y="180" width="28" height="12" fill="#D30014"/>
+      <rect x="1095" y="180" width="28" height="12" fill="#D30014"/>
+      <rect x="1150" y="180" width="28" height="12" fill="#D30014"/>
+      <rect x="1205" y="180" width="28" height="12" fill="#D30014"/>
+
+      <rect x="1055" y="228" width="28" height="12" fill="#D30014"/>
+      <rect x="1110" y="228" width="28" height="12" fill="#D30014"/>
+      <rect x="1165" y="228" width="28" height="12" fill="#D30014"/>
+      <rect x="1220" y="228" width="28" height="12" fill="#D30014"/>
+    </g>
+  </g>
+
+  <g opacity="0.9">
+    <path d="M1180 650L1345 650" stroke="#E3E3E3" stroke-width="8" stroke-linecap="round"/>
+    <path d="M1180 680L1345 680" stroke="#D30014" stroke-width="8" stroke-linecap="round"/>
+    <path d="M1180 710L1345 710" stroke="#E3E3E3" stroke-width="8" stroke-linecap="round"/>
+  </g>
+
+  <g opacity="0.18" filter="blur(18px)">
+    <ellipse cx="790" cy="410" rx="360" ry="220" fill="#EFEFEF"/>
+  </g>
+</svg>
