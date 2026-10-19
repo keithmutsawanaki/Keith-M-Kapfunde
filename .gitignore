@@ -1,3 +1,18 @@
+node_modules/
+dist/
+build/
+.cache/
+.vite/
+.env
+.env.local
+.DS_Store
+.vscode/
+coverage/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+/.idea/
+*.log
 # Logs
 logs
 *.log

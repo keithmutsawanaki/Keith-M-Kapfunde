@@ -1,0 +1,21 @@
+{
+  "capturedOn": "2026-10-19",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "screenshots": [
+    {
+      "file": "natasha.webp",
+      "url": "https://natasha-portfolio.onrender.com"
+    },
+    {
+      "file": "portfolio-v1.webp",
+      "url": "https://portfolio-7o1b.onrender.com/"
+    },
+    {
+      "file": "oak-convening-2026.webp",
+      "url": "https://oak-convening-2026.vercel.app/"
+    }
+  ]
+}

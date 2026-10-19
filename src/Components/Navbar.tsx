@@ -1,98 +1,17 @@
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { ArrowUpRight, ChevronDown, Download, Menu, MessageCircle, Search, X } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { projectCards, skills } from '../content';
 
+function PortfolioSearch({close}:{close:()=>void}) {
+  const ref=useRef<HTMLDialogElement>(null);const [query,setQuery]=useState('');
+  useEffect(()=>{const dialog=ref.current;dialog?.showModal();return()=>dialog?.close()},[]);
+  return <dialog ref={ref} className="portfolio-search-dialog" aria-label="Search portfolio" onCancel={close} onKeyDown={e=>{if(e.key==='Escape'){e.preventDefault();close()}}} onClick={e=>{if(e.target===e.currentTarget)close()}}><button className="search-close" aria-label="Close search" onClick={close}><X size={20}/></button><label>Search portfolio<input autoFocus type="search" placeholder="Find a project..." value={query} onChange={e=>setQuery(e.target.value)}/></label><div className="portfolio-search-results">{projectCards.filter(project=>`${project.title} ${project.category}`.toLowerCase().includes(query.toLowerCase())).map(project=><Link key={project.title} to="/projects" onClick={close}>{project.title}<ArrowUpRight size={15} aria-hidden="true"/></Link>)}{projectCards.filter(project=>`${project.title} ${project.category}`.toLowerCase().includes(query.toLowerCase())).length===0&&<p>No matching projects.</p>}</div></dialog>;
+}
 
-const Navbar = () => {
-    const [showNavbar, setShowNavbar] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling down
-        setShowNavbar(false);
-      } else {
-        // Scrolling up
-        setShowNavbar(true);
-      }
-
-      setLastScrollY(currentScrollY);
-    };
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [lastScrollY]);
-
-  return (
-    <header
-      className={`fixed top-0 left-0 z-50 w-full transition-transform duration-300 backdrop-blur-md bg-white/80 border-b border-black/10 ${
-        showNavbar ? "translate-y-0" : "-translate-y-full"
-      }`}
-    >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
-        <Link to="/" className="text-2xl font-bold tracking-tight text-black">
-          Keith<span className="text-gray-600">.</span>
-        </Link>
-
-        <div className="flex items-center gap-8">
-          <Link to="/about" className="text-sm font-medium text-gray-700 transition hover:text-black hover:scale-110 hover:-rotate-12 origin-center duration-300">
-            About
-          </Link>
-
-          <Link to="/projects" className="text-sm font-medium text-gray-700 transition hover:text-black hover:scale-110 hover:-rotate-12 origin-center duration-300">
-            Projects
-          </Link>
-
-          <Link
-            to="/certifications"
-            className="text-sm font-medium text-gray-700 transition hover:text-black hover:scale-110 hover:-rotate-12 origin-center duration-300"
-          >
-            Certifications
-          </Link>
-
-          <div className="flex items-center gap-4">
-            <a
-              href="https://github.com/keithmutsawanaki"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-medium text-gray-700 transition hover:text-black hover:scale-110 hover:-rotate-12 origin-center duration-300"
-            >
-              GitHub
-            </a>
-
-            <a
-              href="https://www.linkedin.com/in/keith-mutsawanaki-kapfunde-0a74243b1"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-medium text-gray-700 transition hover:text-black hover:scale-110 hover:-rotate-12 origin-center duration-300"
-            >
-              LinkedIn
-            </a>
-
-            <a
-              href="mailto:keithmutsawanaku@gmail.com"
-              className="text-sm font-medium text-gray-700 transition hover:text-black hover:scale-110 hover:-rotate-12 origin-center duration-300"
-            >
-              Email
-            </a>
-
-            <a
-              href="/Keith_Kapfunde_CV.pdf"
-              download
-              aria-label="Download CV"
-              className="rounded-md bg-gray-300 px-3 py-1 text-sm font-medium text-black hover:bg-gray-400 transition"
-            >
-              My CV
-            </a>
-          </div>
-        </div>
-      </nav>
-    </header>
-  );
-};
-
-export default Navbar;
+export default function Navbar() {
+  const [open,setOpen]=useState(false);const [dropdown,setDropdown]=useState<string|null>(null);const [search,setSearch]=useState(false);const header=useRef<HTMLElement>(null);
+  useEffect(()=>{const close=(event:KeyboardEvent)=>{if(event.key==='Escape'){setOpen(false);setDropdown(null)}};const outside=(event:PointerEvent)=>{if(!header.current?.contains(event.target as Node))setDropdown(null)};window.addEventListener('keydown',close);window.addEventListener('pointerdown',outside);return()=>{window.removeEventListener('keydown',close);window.removeEventListener('pointerdown',outside)}},[]);
+  const reset=()=>{setOpen(false);setDropdown(null)};
+  return <><header className="nav-wrap" ref={header}><nav className="nav-bar" aria-label="Main navigation"><Link className="wordmark" to="/" onClick={reset} aria-label="Keith Kapfunde home">Keith<span>KK</span><i aria-hidden="true"><b/><b/><b/><b/><b/></i></Link><div className="desktop-links reference-nav-links"><div className="nav-dropdown"><button aria-expanded={dropdown==='projects'} onClick={()=>setDropdown(dropdown==='projects'?null:'projects')}>Projects<ChevronDown size={10} aria-hidden="true"/></button>{dropdown==='projects'&&<div className="nav-dropdown-panel">{projectCards.map(project=><Link to="/projects" key={project.title} onClick={reset}>{project.title}</Link>)}</div>}</div><a href="/#method" onClick={reset}>Method</a><div className="nav-dropdown"><button aria-expanded={dropdown==='stack'} onClick={()=>setDropdown(dropdown==='stack'?null:'stack')}>Stack<ChevronDown size={10} aria-hidden="true"/></button>{dropdown==='stack'&&<div className="nav-dropdown-panel">{skills.map(skill=><Link to="/about#stack" key={skill} onClick={reset}>{skill}</Link>)}</div>}</div><NavLink to="/certifications" onClick={reset}>Learning</NavLink><div className="nav-dropdown"><button aria-expanded={dropdown==='more'} onClick={()=>setDropdown(dropdown==='more'?null:'more')}>More<ChevronDown size={10} aria-hidden="true"/></button>{dropdown==='more'&&<div className="nav-dropdown-panel"><Link to="/about" onClick={reset}>About</Link><a href="https://github.com/keithmutsawanaki" target="_blank" rel="noreferrer" onClick={reset}>GitHub</a><a href="https://www.linkedin.com/in/keith-mutsawanaki-kapfunde-0a74243b1" target="_blank" rel="noreferrer" onClick={reset}>LinkedIn</a><a href="/Keith_Kapfunde_CV.pdf" download onClick={reset}>Download CV<Download size={13} aria-hidden="true"/></a></div>}</div><a href="/#contact" onClick={reset}>Contact</a></div><div className="nav-actions"><button className="nav-search" aria-label="Search portfolio" onClick={()=>setSearch(true)}><Search size={17}/></button><a className="pill message-link" href="https://wa.me/263778362164" target="_blank" rel="noreferrer"><MessageCircle className="whatsapp-symbol" size={15} aria-hidden="true"/> message me</a><button className="menu-toggle" aria-label={open?'Close menu':'Open menu'} aria-expanded={open} aria-controls="mobile-menu" onClick={()=>setOpen(!open)}>{open?<X aria-hidden="true"/>:<Menu aria-hidden="true"/>}</button></div></nav>{open&&<div id="mobile-menu" className="mobile-menu"><Link to="/projects" onClick={reset}>Projects<ArrowUpRight size={15} aria-hidden="true"/></Link><a href="/#method" onClick={reset}>Method<ArrowUpRight size={15} aria-hidden="true"/></a><Link to="/about" onClick={reset}>About<ArrowUpRight size={15} aria-hidden="true"/></Link><Link to="/certifications" onClick={reset}>Certifications<ArrowUpRight size={15} aria-hidden="true"/></Link><a href="/#contact" onClick={reset}>Contact<ArrowUpRight size={15} aria-hidden="true"/></a><a href="/Keith_Kapfunde_CV.pdf" download>Download CV<Download size={15} aria-hidden="true"/></a></div>}</header>{search&&<PortfolioSearch close={()=>setSearch(false)}/>}</>;
+}

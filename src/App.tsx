@@ -1,327 +1,69 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./Components/Navbar";
+import { ArrowUpRight, ArrowLeftRight } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Link, Route, Routes, useLocation } from 'react-router-dom';
+import Navbar from './Components/Navbar';
+import ReferenceHome, { ReferenceFooter } from './reference/ReferenceHome';
+import DotField from './reference/DotField';
+import { certifications, projectCards, skills, timeline } from './content';
 
-const stats = [
-  { value: "1st", label: "year building" },
-  { value: "3+", label: "projects shipped" },
-  { value: "2", label: "core stacks" },
-  { value: "100%", label: "curious" },
-];
+function Label({ children }: { children: React.ReactNode }) { return <span className="section-label">[ {children} ]</span>; }
 
-const projectCards = [
-  {
-    title: "Natasha's Portfolio",
-    category: "frontend + digital marketing",
-    text: "A professional digital marketer's portfolio showcasing social media marketing, content creation, and digital strategy expertise with a modern design.",
-    url: "https://natasha-portfolio.onrender.com",
-    image: "https://natasha-portfolio.onrender.com/NATASHA.jpeg",
-  },
-  {
-    title: "Personal Portfolio",
-    category: "full stack developer portfolio",
-    text: "A comprehensive portfolio site demonstrating full-stack development skills with React, JavaScript, Python, and responsive web design.",
-    url: "https://portfolio-7o1b.onrender.com/",
-    image: "https://portfolio-7o1b.onrender.com/profile.jpeg",
-  },
-  {
-    title: "Oak Project",
-    category: "collaborative group project",
-    text: "Built as a team of three developers, this project showcases collaborative web development skills and teamwork in delivering a complete application.",
-    url: "https://oak-project-2.vercel.app",
-    image: null,
-  },
-  {
-    title: "TaskFlow",
-    category: "full stack app",
-    text: "Built a productivity dashboard with authentication, task management, and a clean responsive UI using React and a backend API.",
-    url: null,
-    image: null,
-  },
-  {
-    title: "Portfolio Website",
-    category: "frontend + branding",
-    text: "Designed and developed a personal portfolio that showcases my work, projects, and technical journey with a modern frontend.",
-    url: null,
-    image: null,
-  },
-  {
-    title: "API Starter",
-    category: "backend development",
-    text: "Created a reusable backend foundation with routes, data handling, and structured project architecture for future products.",
-    url: null,
-    image: null,
-  },
-];
-
-const values = [
-  "React",
-  "TypeScript",
-  "Node.js",
-  "Express",
-  "PostgreSQL",
-  "MongoDB",
-  "Tailwind CSS",
-  "REST APIs",
-  "Git & GitHub",
-  "Problem solving",
-];
-
-const certifications = [
-  "JavaScript Fundamentals",
-  "Python Programming full course",
-  "Frontend Development with React",
-  "Backend Development with Node.js",
-];
-
-const timeline = [
-  { period: "2026 — Present", role: "Full Stack Developer", company: "Self-taught / freelance projects" },
-  { period: "2026", role: "Web Developer Journey", company: "Started learning frontend and backend skills" },
-  { period: "This Year", role: "Building Projects", company: "Learning, coding, and shipping ideas" },
-];
-
-function Home() {
-  return (
-    <main className="page-shell">
-      <section className="hero section">
-        <div className="eyebrow">Full stack developer </div>
-        <h1>
-          I build practical digital products from the frontend to the backend.
-        </h1>
-        <p className="lead">
-          I’m Keith Kapfunde, a full stack developer focused on building practical digital solutions that turn ideas into working products. I enjoy solving problems through technology, learning by building, and continuously improving the way I create.
-
-        </p>
-
-        <div className="cta-row">
-          <a className="primary-btn" href="#projects">
-            View projects
-          </a>
-          <a className="secondary-btn" href="#contact">
-            Let&apos;s talk
-          </a>
-        </div>
-
-        <div className="stats-grid">
-          {stats.map((item) => (
-            <div className="stat-card" key={item.label}>
-              <strong>{item.value}</strong>
-              <span>{item.label}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section id="projects" className="section panel-section">
-        <div className="section-heading">
-          <span className="mini-label">Selected work</span>
-          <h2>Projects I&apos;m building while growing my developer journey.</h2>
-        </div>
-
-        <div className="project-grid">
-          {projectCards.map((project) => (
-            <article 
-              className="project-card" 
-              key={project.title}
-              onClick={() => project.url && window.open(project.url, '_blank')}
-              style={project.url ? { cursor: 'pointer' } : { cursor: 'default' }}
-            >
-              <div className="project-visual" aria-hidden="true" style={project.image ? { backgroundImage: `url(${project.image})`, backgroundSize: 'cover', backgroundPosition: 'center' } : {}} />
-              <div className="project-copy">
-                <span>{project.category}</span>
-                <h3>{project.title}</h3>
-                <p>{project.text}</p>
-                {project.url && (
-                  <a 
-                    href={project.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-block mt-4 px-3 py-1 text-xs font-semibold text-white bg-black rounded hover:brightness-90 transition"
-                  >
-                    Visit Project →
-                  </a>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="section split-section">
-        <div>
-          <span className="mini-label">About</span>
-          <h2>Learning, building, and improving every day.</h2>
-        </div>
-
-        <div className="about-copy">
-          <p>
-            I started my developer journey this year and I&apos;m focused on becoming a strong full stack developer. I
-            enjoy learning both the front end and back end because I like seeing ideas become real, working products.
-          </p>
-          <p>
-            My work is driven by curiosity, consistency, and a desire to build clean, useful, and scalable digital
-            experiences.
-          </p>
-        </div>
-      </section>
-
-      <section className="section services-section">
-        <div className="section-heading narrow">
-          <span className="mini-label">Stack</span>
-          <h2>Tools and technologies I&apos;m learning and using.</h2>
-        </div>
-
-        <div className="chip-scroll-container">
-          <div className="chip-scroll-track">
-            {values.map((value) => (
-              <span className="chip" key={`${value}-1`}>
-                {value}
-              </span>
-            ))}
-            {values.map((value) => (
-              <span className="chip" key={`${value}-2`}>
-                {value}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="certifications" className="section certification-section">
-        <div className="section-heading narrow">
-          <span className="mini-label">Learning path</span>
-          <h2>Building a strong foundation through practice.</h2>
-        </div>
-
-        <ul className="cert-list">
-          {certifications.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="section timeline-section">
-        <div className="section-heading narrow">
-          <span className="mini-label">Journey</span>
-          <h2>My progress so far.</h2>
-        </div>
-
-        <div className="timeline-list">
-          {timeline.map((item) => (
-            <div className="timeline-item" key={`${item.period}-${item.role}`}>
-              <span>{item.period}</span>
-              <div>
-                <h3>{item.role}</h3>
-                <p>{item.company}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <footer id="contact" className="contact-banner">
-        <div>
-          <span className="mini-label">Let&apos;s build something meaningful</span>
-          <h2>Open to new projects, opportunities, and collaborations.</h2>
-        </div>
-
-        <div className="contact-actions flex items-center gap-3">
-          <a
-            className="primary-btn"
-            href="mailto:keithmutsawanaku@gmail.com"
-            aria-label="Send email"
-          >
-            Email me
-          </a>
-
-          <a
-            className="secondary-btn"
-            href="tel:0778362164"
-            aria-label="Call phone number"
-          >
-            Call: 0778362164
-          </a>
-
-          <a
-            className="secondary-btn"
-            href="https://wa.me/263778362164"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Chat on WhatsApp"
-          >
-            WhatsApp
-          </a>
-        </div>
-      </footer>
-    </main>
-  );
+function PageEffects() {
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (hash) requestAnimationFrame(() => document.getElementById(hash.slice(1))?.scrollIntoView());
+    else window.scrollTo({ top: 0, behavior: 'instant' });
+    const pageNames: Record<string, string> = { '/about': 'About', '/projects': 'Projects', '/certifications': 'Certifications' };
+    document.title = `${pageNames[pathname] ? `${pageNames[pathname]} · ` : ''}Keith Kapfunde — Full Stack Developer`;
+  }, [pathname, hash]);
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('revealed'); observer.unobserve(entry.target); }
+    }), { threshold: .08 });
+    document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, [pathname]);
+  return null;
 }
 
-function About() {
-  return (
-    <main className="page-shell inner-page">
-      <section className="section">
-        <span className="mini-label">About</span>
-        <h1>Full stack developer building my path one project at a time.</h1>
-        <p className="lead">
-          I&apos;m Keith Kapfunde, a full stack developer focused on building practical digital solutions that turn ideas into working products. I enjoy solving problems through technology, learning by building, and continuously improving the way I create.
-        </p>
-      </section>
-    </main>
-  );
+function ScrollProgress() {
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    let scheduled = false;
+    const update = () => { if (scheduled) return; scheduled = true; requestAnimationFrame(() => { const max = document.documentElement.scrollHeight - innerHeight; setProgress(max > 0 ? Math.min(100, Math.round(scrollY / max * 100)) : 0); scheduled = false; }); };
+    window.addEventListener('scroll', update, { passive: true });window.addEventListener('resize', update);update();
+    return () => { window.removeEventListener('scroll', update);window.removeEventListener('resize', update); };
+  }, []);
+  return <div className="scroll-progress" aria-hidden="true"><span style={{ height: `${progress}%` }}/><b>{String(progress).padStart(3, '0')}%</b></div>;
 }
 
-function Projects() {
-  return (
-    <main className="page-shell inner-page">
-      <section className="section">
-        <span className="mini-label">Projects</span>
-        <h1>My work as I grow in full stack development.</h1>
-        <div className="project-grid compact-grid">
-          {projectCards.map((project) => (
-            <article className="project-card" key={project.title}>
-              <div className="project-visual" aria-hidden="true" />
-              <div className="project-copy">
-                <span>{project.category}</span>
-                <h3>{project.title}</h3>
-                <p>{project.text}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-    </main>
-  );
+function ProjectCard({ project, index }: { project: typeof projectCards[number]; index: number }) {
+  const [imageFailed, setImageFailed] = useState(false);
+  return <article className={`work-card work-${index % 3}`}>
+    <div className="work-top"><span>PROJECT / {String(index + 1).padStart(2, '0')}</span><span aria-hidden="true"><ArrowUpRight aria-hidden="true"/></span></div>
+    <div className="work-art">{project.image && !imageFailed ? <img className="project-screenshot" src={project.image} alt={`${project.title} website screenshot`} loading="lazy" onError={() => setImageFailed(true)}/> : <><div className="art-lines"/><span aria-hidden="true">{index === 2 ? 'oak.' : index === 3 ? 'taskflow_' : index === 5 ? '{ API }' : index === 0 ? 'N.' : 'KK.'}</span></>}</div>
+    <div className="work-copy"><span className="work-category">{project.category}</span><h3>{project.title}</h3><p>{project.text}</p>
+    {project.url ? <a className="text-link" href={project.url} target="_blank" rel="noreferrer">Visit project <span aria-hidden="true"><ArrowUpRight aria-hidden="true"/></span></a> : <span className="project-note">Development project <span aria-hidden="true">—</span></span>}</div>
+  </article>;
 }
 
-function Certifications() {
-  return (
-    <main className="page-shell inner-page">
-      <section className="section">
-        <span className="mini-label">Learning path</span>
-        <h1>Skills I&apos;m building as I move forward in tech.</h1>
-        <ul className="cert-list large-list">
-          {certifications.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </section>
-    </main>
-  );
+function Certificates({ full = false }: { full?: boolean }) {
+  return <section className="certificates content-width" data-reveal><div className="section-heading"><div><Label>Learning path</Label><h2>A foundation.<br/>Always evolving<span className="accent">.</span></h2></div><p>Building a strong foundation through practice, hands-on projects, and continuous learning.</p></div><div className="certificate-list">{certifications.map((cert, i) => <a key={cert.label} href={cert.url} target="_blank" rel="noreferrer"><span className="certificate-index">0{i + 1}</span><h3>{cert.label}</h3><span className="certificate-source">Coursera</span><span className="certificate-arrow" aria-hidden="true"><ArrowUpRight aria-hidden="true"/></span></a>)}</div>{!full && <Link className="text-link cert-more" to="/certifications">View learning path <ArrowUpRight aria-hidden="true"/></Link>}</section>;
 }
 
-function App() {
-  return (
-    <BrowserRouter>
-      <Navbar />
+function Contact() { return <ReferenceFooter/>; }
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/certifications" element={<Certifications />} />
-      </Routes>
-    </BrowserRouter>
-  );
+function AboutContent({ full = false }: { full?: boolean }) {
+  return <section className="about-section content-width" data-reveal><div className="about-heading"><Label>The developer</Label><h2>Curiosity.<br/>Code.<br/><span className="accent">Possibility.</span></h2><Link className="text-link" to={full ? '/projects' : '/about'}>{full ? 'Explore my work' : 'More about me'} <ArrowUpRight aria-hidden="true"/></Link></div><div className="about-details"><div className="profile-art" aria-hidden="true"><span>KK<span className="accent">.</span></span><div className="profile-coordinates">FRONTEND <ArrowLeftRight aria-hidden="true"/> BACKEND<br/>ALWAYS EVOLVING / EST. 2026</div></div><p>I’m Keith Mutsawanaki Kapfunde, a full stack developer focused on building practical digital solutions that turn ideas into working products. I enjoy solving problems through technology, learning by building, and continuously improving the way I create.</p><p>I started my developer journey in 2026. My work is driven by curiosity, consistency, and a desire to build clean, useful, and scalable digital experiences.</p>{full && <p>I focus on readable, maintainable code and thoughtful user experiences. Outside of coding I enjoy learning new tools, reading about design, and contributing to projects that help people learn.</p>}<div className="availability"><span className="online-dot"/> Available for freelance work & collaborations</div></div></section>;
 }
 
-export default App;
+function Journey() {
+  return <section className="journey content-width" data-reveal><div><Label>The journey</Label><h2>One project<br/>at a time<span className="accent">.</span></h2></div><div className="timeline">{timeline.map(item => <div key={item.role}><span>{item.period}</span><h3>{item.role}</h3><p>{item.company}</p></div>)}</div></section>;
+}
+
+function Projects() { return <><main id="main-content" className="inner-page content-width"><Label>Selected work / 06 projects</Label><h1>Ideas into<br/>working products<span className="accent">.</span></h1><p className="page-intro">A collection of frontend experiences, full stack applications, and collaborative work from my developer journey.</p><div className="project-grid">{projectCards.map((project, index) => <ProjectCard project={project} index={index} key={project.title}/>)}</div></main><Contact/></>; }
+function About() { return <><main id="main-content" className="inner-page"><div className="content-width"><Label>About Keith</Label><h1>A developer.<br/>Always evolving<span className="accent">.</span></h1></div><AboutContent full/><div id="stack" className="content-width skills-section"><Label>The stack</Label><h2>Tools behind the ideas<span className="accent">.</span></h2><div className="tags">{skills.map(skill => <span key={skill}>{skill}</span>)}</div></div><Journey/></main><Contact/></>; }
+function Certifications() { return <><main id="main-content" className="inner-page"><div className="content-width"><Label>Certifications</Label><h1>Never stop<br/>learning<span className="accent">.</span></h1><p className="page-intro">Skills I’m building as I move forward in tech.</p></div><Certificates full/></main><Contact/></>; }
+function NotFound() { return <><main id="main-content" className="inner-page content-width"><Label>404</Label><h1>Let’s get<br/>back on track<span className="accent">.</span></h1><Link className="pill" to="/">Back to home <ArrowUpRight aria-hidden="true"/></Link></main><Contact/></>; }
+
+export default function App() { return <BrowserRouter><a className="skip-link" href="#main-content">Skip to content</a><DotField/><PageEffects/><Navbar/><ScrollProgress/><Routes><Route path="/" element={<ReferenceHome/>}/><Route path="/projects" element={<Projects/>}/><Route path="/about" element={<About/>}/><Route path="/certifications" element={<Certifications/>}/><Route path="*" element={<NotFound/>}/></Routes></BrowserRouter>; }
